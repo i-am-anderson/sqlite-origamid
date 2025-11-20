@@ -1,0 +1,12 @@
+-- database: ./db.sqlite
+
+-- INSERIR DADOS
+INSERT INTO
+  "cursos" ("id", "nome", "aulas")
+VALUES
+  (1, 'HTML', 5),
+  (2, 'CSS', 15),
+  (3, 'JS', 25);
+
+-- ATUALIZA AS COLUNAS
+UPDATE "cursos" SET "nome" = 'HTML e CSS', "aulas" = 33 WHERE "id" = 1;
