@@ -1,0 +1,42 @@
+-- database: ./db.sqlite
+-- CRIA A TABELA COM TIPOS E RESTRIÇÕES
+CREATE TABLE
+  cursos (
+    id INTEGER NOT NULL,
+    nome TEXT NOT NULL,
+    aulas INTEGER
+  );
+
+-- OBTÉM OS DADOS
+SELECT
+  *
+FROM
+  cursos;
+
+-- INSERE DADOS NA TABELA
+INSERT INTO
+  cursos (id, nome, aulas)
+VALUES
+  (3, 'CSS', 15);
+
+-- TENTANDO INSERIR SEM ID (RESTRIÇÃO)
+INSERT INTO
+  cursos (nome, aulas)
+VALUES
+  ('CSS', 15);
+
+-- ASPAS SIMPLES '' SÃO USADAS PARA STRINGS
+-- ASPAS DUPLAS "" SÃO USADAS PARA IDENTIFICADORES (NOMES COLUNAS, TABELAS)
+-- USAR ASPAS É UMA BOA PRÁTICA
+INSERT INTO
+  "cursos" ("id", "nome", "aulas")
+VALUES
+  (4, 'TypeScript', 25);
+
+-- IDENTAÇÃO É OPCIONAL, MAS AJUDA A LEGIBILIDADE
+-- MÚLTIPLOS REGISTROS
+INSERT INTO
+  "cursos" ("id", "nome", "aulas")
+VALUES
+  (5, 'Angular', 5),
+  (6, 'React', 35);
