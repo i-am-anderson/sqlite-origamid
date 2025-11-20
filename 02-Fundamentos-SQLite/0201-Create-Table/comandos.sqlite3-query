@@ -1,0 +1,19 @@
+-- database: ./db.sqlite
+
+-- CRIA TABELA
+CREATE TABLE
+  cursos (id, nome, aulas);
+
+-- DELETA TABELA
+DROP TABLE cursos;
+
+-- CRIA A TABELA COM TIPOS E RESTRIÇÕES
+CREATE TABLE
+  cursos (
+    id INTEGER NOT NULL,
+    nome TEXT NOT NULL,
+    aulas INTEGER
+  );
+
+-- VERIFICA AS CARACTERISTICAS DA TABELA
+PRAGMA table_info ('cursos');
