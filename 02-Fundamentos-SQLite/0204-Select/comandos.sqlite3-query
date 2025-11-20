@@ -1,0 +1,27 @@
+-- database: ./db.sqlite
+
+-- INSERIR DADOS
+INSERT INTO
+  "cursos" ("id", "nome", "aulas")
+VALUES
+  (1, 'HTML', 5),
+  (2, 'CSS', 15),
+  (3, 'JS', 25);
+
+-- SELECIONA COM TODAS AS COLUNAS
+SELECT * from "cursos";
+
+-- SELECIONA COM COLUNAS ESPECIFICAS
+SELECT "nome", "id" from "cursos";
+
+-- SELECIONA OS DADOS COM CONDICIONAL
+SELECT * from "cursos" WHERE "nome" = 'JS';
+
+-- SELECIONA OS DADOS COM LIMITE DE REGISTROS
+SELECT * from "cursos" WHERE "id" < 3 LIMIT 1;
+
+-- AND: TODAS AS CONDIÇÕES DEVEM SER VERDADEIRAS
+SELECT * from "cursos" WHERE "id" = 2 AND "aulas" > 5;
+
+-- OR: PELO MENOS UMA DAS CONDIÇÕES DEVE SER VERDADEIRA
+SELECT * from "cursos" WHERE "id" = 2 OR "aulas" > 10;
