@@ -1,0 +1,15 @@
+-- database: ./db.sqlite
+
+-- INSERIR DADOS
+INSERT INTO
+  "cursos" ("id", "nome", "aulas")
+VALUES
+  (1, 'Angular', 5),
+  (2, 'React', 35);
+
+-- DELETAR TODAS AS LINHAS DA TABELA
+DELETE FROM "cursos";
+
+-- DELETAR TODAS AS LINHAS DA TABELA COM CONDICIONAL
+DELETE FROM "cursos" WHERE "id" = 1;
+DELETE FROM "cursos" WHERE "nome" = 'React';
