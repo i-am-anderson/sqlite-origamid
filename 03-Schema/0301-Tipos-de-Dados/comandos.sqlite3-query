@@ -1,0 +1,95 @@
+-- database: ./db.sqlite
+-- INTEGER E TEXT SÃO OS TIPOS DE DADOS MAIS COMUNS
+-- INTEGER: ARMAZENA INTEIROS (BOOLEAN (0,1), TIMESTAMP)
+-- TEXT: ARMAZENA TEXTO (STRINGS, DATAS, JSON) 
+-- 
+-- EXISTEM 3 MOMENTOS IMPORTANTES PARA LIDAR COM OS TIPOS DE DADOS:
+-- 1. DEFINIÇÃO DE TABELAS
+-- 2. INSERÇÃO DE DADOS
+-- 3. CONSULTA DE DADOS
+-- 
+-- TIPOS DE DADOS:
+-- 1. TEXT: TEXTO
+-- 2. INTEGER: NÚMEROS INTEIROS
+-- 3. REAL: NÚMEROS FLUTUANTES
+-- 4. BLOB: DADOS BINÁRIOS
+-- 5. NULL: VALOR NULO
+-- 
+-- PORÉM O SQLITE NÃO IMPÕE TIPOS DE DADOS ESTRITOS, MAS SIM UMA AFINIDADE DE TIPO, OU SEJA, ELE TENTARÁ CONVERTER OS DADOS INSERIDOS EM UMA COLUNA. OU SEJA, SE UMA TABELA FOR IMPORTADA DO MYSQL (QUE CONTÉM DADOS DO TIPO INT, VARCHAR E ETC.), O SQLITE VAI CONVERTER ESSES TIPOS PARA SUAS RESPECTIVAS AFINIDADES. SÃO 5 TIPOS DE AFINIDADES:
+-- 1. TEXT: TEXTO
+-- 2. INTEGER: NÚMEROS INTEIROS
+-- 3. REAL: NÚMEROS FLUTUANTES
+-- 4. BLOB: DADOS BINÁRIOS
+-- 5. NUMERIC: NÚMEROS INTEIROS E FLUTUANTES
+-- 
+-- https://sqlite.org/datatype3.html
+-- 
+-- EXEMPLO DE UMA TABELA COM TIPOS USADOS NO MYSQL QUE SERÃO CONVERTIDOS NO SQLITE PARA SUAS AFINIDADES
+CREATE TABLE
+  "produtos" (
+    "id" INT,
+    "descontinuado" TINYINT,
+    "nome" VARCHAR(100),
+    "preco" DECIMAL(10, 2),
+    "descricao" TEXT,
+    "data_criacao" DATETIME
+  );
+
+INSERT INTO
+  "produtos" (
+    "id",
+    "descontinuado",
+    "nome",
+    "preco",
+    "descricao",
+    "data_criacao"
+  )
+VALUEs
+  (1, 0, 'Notebook', 200.5, null, '24-10-2049');
+
+-- VERIFICAR OS TIPOS DE DADOS
+SELECT
+  typeof("id"),
+  typeof("descontinuado"),
+  typeof("nome"),
+  typeof("preco"),
+  typeof("descricao"),
+  typeof("data_criacao")
+FROM
+  "produtos";
+
+-- O RETORNO SERÁ:
+-- "id"             INT               -> INTEGER
+-- "descontinuado"  TINYINT           -> INTEGER
+-- "nome"           VARCHAR(100)      -> TEXT
+-- "preco"          DECIMAL(10, 2)    -> REAL
+-- "descricao"      TEXT              -> NULL
+-- "data_criacao"   DATETIME          -> TEXT
+-- 
+-- CONVERSÃO DE TIPOS: O SQLITE CONVERTE OS TIPOS DE DADOS QUANDO NECESSÁRIO NA INSERÇÃO DOS MESMOS
+INSERT INTO
+  "produtos" (
+    "id",
+    "descontinuado",
+    "nome",
+    "preco",
+    "descricao",
+    "data_criacao"
+  )
+VALUEs
+  ('1', '0', 999, '200.5', 100, 2049);
+
+SELECT
+  *
+FROM
+  "produtos";
+
+SELECT
+  typeof("id"),
+  typeof("descontinuado"),
+  typeof("nome"),
+  typeof("preco"),
+  typeof("descricao"),
+  typeof("data_criacao")
+FROM
+  "produtos";
