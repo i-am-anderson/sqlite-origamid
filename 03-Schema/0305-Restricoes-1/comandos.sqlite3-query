@@ -1,0 +1,58 @@
+-- database: ./db.sqlite
+-- NÃO NULO
+CREATE TABLE
+  "usuario" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nome" TEXT NOT NULL
+  ) STRICT;
+
+INSERT INTO
+  "usuario" ("nome")
+VALUES
+  ("Anderson");
+
+-- UNIQUE
+CREATE TABLE
+  "usuario" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nome" TEXT NOT NULL,
+    "email" TEXT NOT NULL UNIQUE
+  ) STRICT;
+
+INSERT INTO
+  "usuario" ("nome", "email")
+VALUES
+  ("Anderson", "anderson@email.com");
+
+-- UNIQUE EM MAIS DE UMA COLUNA, CRIANDO UMA CHAVE ÚNICA COMPOSTA
+-- A COMBINAÇÃO "pessoa_id" COM "curso_id" SERÁ ÚNICA, OU SEJA,
+-- "pessoa_id = 1" E "curso_id = 12" SERÁ ÚNICO, NÃO TERÁ ESSA MESMA COMBINAÇÃO MAIS DE UMA VEZ
+CREATE TABLE
+  "certificados" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "pessoa_id" INTEGER NOT NULL,
+    "curso_id" INTEGER NOT NULL,
+    UNIQUE ("pessoa_id", "curso_id")
+  ) STRICT;
+
+INSERT INTO
+  "certificados" ("pessoa_id", "curso_id")
+VALUES
+  (2, 1);
+
+-- COLLATE: DEFINE COMO A COMPARAÇÃO DE TEXTOS DEVE SER FEITA
+-- POR EXEMPLO, SE DEVE SER SENSÍVEL A MAIÚSCULAS E MINÚSCULAS 'NOCASE'
+-- COM O 'COLLATE NOCASE Anderson@gmail.com' É O MESMO QUE 'anderson@gmail.com'
+CREATE TABLE
+  "usuario" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nome" TEXT NOT NULL,
+    "email" TEXT NOT NULL UNIQUE COLLATE NOCASE
+  ) STRICT;
+
+-- NÃO DEIXA INSERIR, APESAR DE UM COMEÇAR COM MAIÚSCULA E O OUTRO COM MINUSCULA
+INSERT INTO
+  "usuario" ("nome", "email")
+VALUES
+  ("Anderson", "anderson@email.com"),
+  ("Anderson", "Anderson@email.com");
