@@ -1,0 +1,146 @@
+-- database: ./db.sqlite
+-- CRIAR TABELA 'USERS' [ok]
+CREATE TABLE
+  "users" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "email" TEXT NOT NULL COLLATE NOCASE UNIQUE,
+    "created" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  ) STRICT;
+
+-- POPULAR TABELA 'USERS'
+INSERT INTO
+  "users" ("name", "password", "email")
+VALUES
+  ('Anderson', 'senha123', 'anderson.email.com');
+
+-- CRIAR TABELA 'COURSES' [ok]
+CREATE TABLE
+  "courses" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "slug" TEXT NOT NULL COLLATE NOCASE UNIQUE,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "aulas" INTEGER NOT NULL,
+    "horas" INTEGER NOT NULL,
+    "created" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  ) STRICT;
+
+-- POPULAR TABELA 'COURSES'
+INSERT INTO
+  "courses" ("slug", "title", "description", "aulas", "horas")
+VALUES
+  (
+    'javascript-basico',
+    'JavaScript Básico',
+    'Aprenda os fundamentos da linguagem JavaScript.',
+    20,
+    5
+  );
+
+-- CRIAR TABELA 'LESSONS' [ok]
+CREATE TABLE
+  "lessons" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "course_id" INTEGER NOT NULL,
+    "slug" TEXT NOT NULL COLLATE NOCASE,
+    "title" TEXT NOT NULL,
+    "materia" TEXT NOT NULL,
+    "materia_slug" TEXT NOT NULL COLLATE NOCASE,
+    "seconds" INTEGER NOT NULL,
+    "video" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "lesson_order" INTEGER NOT NULL,
+    "free" INTEGER NOT NULL DEFAULT 0 CHECK ("free" IN (0, 1)),
+    "created" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY ("course_id") REFERENCES "courses" ("id"),
+    UNIQUE ("course_id", "slug")
+  ) STRICT;
+
+-- POPULAR TABELA 'LESSONS'
+INSERT INTO
+  "lessons" (
+    "course_id",
+    "slug",
+    "title",
+    "materia",
+    "materia_slug",
+    "seconds",
+    "video",
+    "description",
+    "lesson_order",
+    "free"
+  )
+VALUES
+  (
+    1,
+    'variaveis-let-const',
+    'Variáveis: let e const',
+    'Fundamentos',
+    'fundamentos',
+    480,
+    'variaveis.mp4',
+    'Entenda a diferença entre let, const e var.',
+    3,
+    1
+  );
+
+-- CRIAR TABELA 'LESSONS COMPLETED' [ok]
+CREATE TABLE
+  "lessons_completed" (
+    "user_id" INTEGER NOT NULL,
+    "course_id" INTEGER NOT NULL,
+    "lesson_id" INTEGER NOT NULL,
+    "completed" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY ("user_id", "course_id", "lesson_id"),
+    FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE,
+    FOREIGN KEY ("course_id") REFERENCES "courses" ("id"),
+    FOREIGN KEY ("lesson_id") REFERENCES "lessons" ("id")
+  ) STRICT;
+
+-- POPULAR TABELA 'LESSONS COMPLETED'
+INSERT INTO
+  "lessons_completed" ("user_id", "course_id", "lesson_id")
+VALUES
+  (1, 1, 1);
+
+-- CRIAR TABELA 'CERTIFICATES'
+CREATE TABLE
+  "certificates" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "user_id" INTEGER NOT NULL,
+    "course_id" INTEGER NOT NULL,
+    "completed" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE ("user_id", "course_id"),
+    FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE,
+    FOREIGN KEY ("course_id") REFERENCES "courses" ("id")
+  ) STRICT;
+
+-- POPULAR TABELA 'CERTIFICATES'
+INSERT INTO
+  "certificates" ("id", "user_id", "course_id")
+VALUES
+  ('aq32scsqd', 1, 1);
+
+-- TESTE
+DELETE FROM "users"
+WHERE
+  id = 1;
+
+SELECT
+  "rowid",
+  *
+FROM
+  "lessons_completed";
+
+-- DROPS
+DROP TABLE "users";
+
+DROP TABLE "courses";
+
+DROP TABLE "lessons";
+
+DROP TABLE "lessons_completed";
+
+DROP TABLE "certificates";
