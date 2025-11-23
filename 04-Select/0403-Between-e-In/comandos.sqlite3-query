@@ -1,0 +1,29 @@
+-- database: ./db.sqlite
+-- 
+-- BETWEEN: É USADO PARA VERIFICAR SE UM VALOR ESTÁ DENTRO DE UM INTERVALO ESPECÍFICO, INCLUINDO OS LIMITES
+-- 
+-- VALORES NUMÉRICOS
+SELECT * FROM "produtos" WHERE "preco" BETWEEN 10000 AND 20000;
+-- 
+-- PARA DATAS
+SELECT * FROM "produtos" WHERE "criado" BETWEEN '2049-06' AND '2049-08';
+SELECT * FROM "produtos" WHERE "criado" NOT BETWEEN '2049-06' AND '2049-08';
+-- 
+-- IN: É USADO PARA VERIFICAR SE UM VALOR ESTÁ PRESENTE EM UMA LISTA DE VALORES (ARRAY)
+SELECT * FROM "produtos" WHERE "categoria" IN ('notebook', 'hardware');
+SELECT * FROM "produtos" WHERE "categoria" NOT IN ('notebook', 'hardware');
+SELECT * FROM "produtos" WHERE "id" IN (1, 5, 7);
+SELECT * FROM "produtos" WHERE "id" NOT IN (1, 5, 7);
+-- 
+-- SIMILAR COM 'OR'
+SELECT * FROM "produtos" WHERE "categoria" = 'notebook' OR "categoria" = 'hardware';
+-- SIMILAR COM 'LIKE'
+SELECT * FROM "produtos" WHERE "nome" LIKE '%notebook%' OR "nome" LIKE '%process%';
+-- 
+-- 
+-- 
+-- 
+-- PORQUE USAMOS 'INTEGER' PARA VALORES MONETÁRIOS E NÃO DECIMAL, FLOAT ...
+SELECT 0.1 + 0.2;
+-- O ACIMA RETORNA 0.30000000000000004
+-- NÚMEROS DECIMAIS PODEM SER IMPRECISOS E É MENOS PERFORMÁTICO
