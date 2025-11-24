@@ -1,0 +1,27 @@
+-- database: ./db.sqlite
+-- 
+-- FUNÇÕES
+-- 
+-- MATEMÁTICA
+-- 
+-- COUNT(): CONTA NÚMERO DE LINHAS
+SELECT COUNT(*) FROM "produtos";
+SELECT COUNT() FROM "produtos";
+SELECT COUNT("categoria") FROM "produtos";
+-- 
+-- SUM(): SOMA VALORES DE UMA COLUNA NUMÉRICA
+-- AS PARA RENOMEAR COLUNA
+SELECT SUM("estoque") AS "total_estoque" FROM "produtos";
+SELECT SUM("preco" * "estoque") AS "valor_total_estoque" FROM "produtos";
+-- 
+-- AVG(): CALCULA A MÉDIA DE UMA COLUNA NUMÉRICA
+SELECT AVG("preco") FROM "produtos";
+-- 
+-- ROUND(): ARREDONDANDO VALOR
+SELECT ROUND(AVG("preco"),2) FROM "produtos";
+-- 
+-- MIN(): RETORNA O MENOR VALOR DE UMA COLUNA
+SELECT MIN("preco"), * FROM "produtos";
+-- 
+-- MAX(): RETORNA O MAIOR VALOR DE UMA COLUNA
+SELECT MAX("preco"), * FROM "produtos";
