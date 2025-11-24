@@ -1,0 +1,104 @@
+-- database: ./db.sqlite
+-- 
+-- FUNÇÕES
+-- 
+-- DATA E HORA
+-- 
+-- DATE(): RETORNA A DATA ATUAL OU CONVERTE UMA STRING EM DATA
+SELECT
+  DATE('now');
+
+-- 
+-- TIME(): RETORNA A HORA ATUAL OU CONVERTE UMA STRING EM HORA
+SELECT
+  TIME('now');
+
+-- UTC (+00:00)
+SELECT
+  TIME('now', '-03:00');
+
+SELECT
+  TIME('now', 'localtime');
+
+-- 
+-- DATETIME(): RETORNA A DATA E HORA ATUAL OU CONVERTE UMA STRING EM DATA E HORA
+SELECT
+  DATETIME('now', '-03:00');
+
+SELECT
+  CURRENT_TIMESTAMP;
+
+-- 
+-- STRFTIME(): FORMATA UMA DATA E HORA EM STRING
+SELECT
+  STRFTIME('%Y-%m-%d %H:%M', 'now');
+
+SELECT
+  STRFTIME('%d/%m/%Y %H:%M', 'now', 'localtime');
+
+-- UNIX TIMESTAMP
+SELECT
+  STRFTIME('%s', 'now', 'localtime');
+
+-- 
+-- 
+-- 
+-- CÁLCULO DE DATA
+SELECT
+  DATE('now', '+1 day');
+
+-- ADD 1 DIA
+SELECT
+  DATE('now', '-1 month');
+
+-- SUBTRAI 1 MÊS
+SELECT
+  DATETIME('now', '+1 day', '-6 hours');
+
+-- +1 DIA E DEPOIS -6 h
+SELECT
+  DATE('2049-06-16', '+7 days');
+
+-- 2025-06-23
+SELECT
+  TIME('12:00', '+90 minutes');
+
+-- 13:30:00
+SELECT
+  *
+FROM
+  "produtos"
+WHERE
+  "criado" BETWEEN DATE('2049-01-01') AND DATE('2049-01-01', '+6 month');
+
+SELECT
+  STRFTIME('%m-%Y', "criado")
+FROM
+  produtos;
+
+-- 
+-- 
+-- 
+-- USO DAS FUNÇÕES
+-- AS FUNÇÕES PODEM SER USADAS EM 'CREATE', 'SELECT', 'WHERE', 'INSERT' E ETC.
+CREATE TABLE
+  "livros" (
+    "id" INTEGER PRIMARY KEY,
+    "nome" TEXT NOT NULL,
+    "criado" TEXT NOT NULL DEFAULT (STRFTIME('%Y-%m-%d %H:%M:%S', 'now', '-03:00'))
+  ) STRICT;
+
+INSERT INTO
+  "livros" ("nome")
+VALUES
+  (TRIM('   Aprendendo SQL  ')),
+  (TRIM('Avançando em SQL '));
+
+SELECT
+  "nome",
+  LENGTH("nome") AS "tamanho_nome",
+  *
+FROM
+  "livros"
+WHERE
+  "tamanho_nome" > 15;
