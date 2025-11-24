@@ -1,0 +1,23 @@
+-- database: ./db.sqlite
+-- 
+-- FUNÇÕES
+-- 
+-- TEXTO
+-- 
+-- LENGTH():  RETORNA O COMPRIMENTO DA STRING
+SELECT LENGTH("nome"), "nome" FROM "produtos";
+SELECT LENGTH("nome") AS "tamanho", "nome" FROM "produtos" WHERE "tamanho" >= 15;
+-- 
+-- UPPER(): CONVERTE PARA MAIÚSCULAS
+SELECT UPPER("nome") FROM "produtos";
+-- 
+-- LOWER(): CONVERTE PARA MINÚSCULAS
+SELECT LOWER("nome") FROM "produtos";
+SELECT LOWER("nome") AS "nome_min" FROM "produtos" WHERE "nome_min" = LOWER('ÓCULOS 3D PRO');
+-- 
+-- SUBSTR(): RETORNA PARTE DA STRING
+-- A PARTIR DO CARACTERE 1 PEGA OS 5 PRIMEIROS CARACTERES
+SELECT SUBSTR("nome", 1, 5) FROM "produtos";
+-- 
+-- TRIM(): REMOVE ESPAÇOS EM BRANCO DO INÍCIO E FIM DA STRING
+SELECT TRIM("nome") FROM "produtos";
