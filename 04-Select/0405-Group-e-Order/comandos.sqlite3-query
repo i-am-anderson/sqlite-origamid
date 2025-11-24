@@ -1,0 +1,41 @@
+-- database: ./db.sqlite
+-- 
+-- ORDER BY
+-- ASC (PADRÃO) ORDENA POR ASCENDENCIA/DESCENDENCIA
+SELECT * FROM "produtos" ORDER BY "preco" ASC;
+SELECT * FROM "produtos" ORDER BY "preco" DESC;
+-- 
+-- 
+-- PRIMEIRO CATEGORIA, DEPOIS PREÇO
+SELECT * FROM "produtos" ORDER BY "categoria" ASC, "preco" ASC;
+-- 
+-- 
+-- ORDENA POR DATA
+SELECT * FROM "produtos" ORDER BY "criado" DESC;
+-- 
+-- 
+-- GROUP BY: AGRUPA OS RESULTADOS DE UMA CONSULTA
+SELECT "categoria", COUNT(*) AS "total" FROM "produtos" GROUP BY "categoria";
+SELECT "categoria", AVG("preco") AS "preco_medio" FROM "produtos" GROUP BY "categoria";
+-- 
+-- 
+-- GROUP BY E ORDER BY juntos
+SELECT "categoria", COUNT(*) AS "total"
+FROM "produtos" GROUP BY "categoria" ORDER BY "total" DESC;
+-- 
+-- 
+--- DATA POR ANO
+SELECT STRFTIME('%Y', "criado") AS "ano", COUNT(*) AS "total"
+FROM "produtos" GROUP BY "ano";
+-- 
+-- 
+-- 
+-- HAVING
+-- FILTRA OS RESULTADOS DE UMA CONSULTA APÓS O AGRUPAMENTO. O HAVING FUNCIONA COMO O WHERE APÓS O GROUP BY.
+SELECT "categoria", COUNT(*) AS "total"
+FROM "produtos" GROUP BY "categoria"
+HAVING "total" > 1;
+
+SELECT "categoria", AVG("preco") AS "preco_medio"
+FROM "produtos" GROUP BY "categoria"
+HAVING "preco_medio" > 70000;
