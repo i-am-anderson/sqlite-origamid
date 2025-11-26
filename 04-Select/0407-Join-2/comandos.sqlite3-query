@@ -1,0 +1,17 @@
+-- database: ./db.sqlite
+-- 
+-- 
+-- LEFT JOIN: RETORNA TODAS AS LINHAS DA TABELA À ESQUERDA 'lessons' E AS CORRESPONDÊNCIAS DA TABELA À DIREITA "lessons_completed". SE NÃO HOUVER CORRESPONDÊNCIA, OS VALORES DA TABELA À DIREITA SERÃO 'NULL'
+-- 
+SELECT "lc"."user_id", "l"."title", "lc"."completed"
+FROM "lessons" AS "l"
+LEFT JOIN "lessons_completed" AS "lc"
+ON "lc"."lesson_id" = "l"."id" AND "lc"."user_id" = 1;
+
+-- 
+-- SELF JOIN: É UM JOIN DE UMA TABELA CONSIGO MESMA. É ÚTIL PARA COMPARAR LINHAS DENTRO DA MESMA TABELA E ENCONTRAR VALORES DUPLICADOS
+-- 
+SELECT "a"."id", "a"."slug"
+FROM "lessons" AS "a"
+JOIN "lessons" AS "b" ON "a"."slug" = "b"."slug"
+WHERE "a"."id" != "b"."id";
