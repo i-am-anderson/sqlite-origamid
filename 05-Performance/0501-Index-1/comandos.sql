@@ -1,4 +1,4 @@
--- database: ./db.sqlite
+--
 -- 
 -- 
 SELECT COUNT(*) FROM "certificates";      -- 17102540
