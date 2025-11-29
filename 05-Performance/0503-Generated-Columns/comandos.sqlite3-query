@@ -1,0 +1,37 @@
+-- database: ./db.sqlite
+--
+-- 
+-- GENERATED COLUMNS: GERA COLUNAS AUTOMATICAMENTE A PARTIR DE OUTRAS COLUNAS, NÃO É POSSÍVEL INSERIR DADOS MANUALMENTE NAS MESMAS. EXISTEM DOIS TIPOS:
+-- 
+-- 1. VIRTUAL: CALCULA O VALOR DURANTE A EXECUÇÃO DA QUERY, NÃO OCUPA ESPAÇO.
+-- 2. STORED: ARMAZENA O VALOR NO DISCO, COMO UMA COLUNA NORMAL. UTILIZAR QUANDO A COLUNA É GERALMENTE UTILIZADA EM FILTROS/CONSULTAS'
+-- 
+-- 
+CREATE TABLE "users" (
+  "id" INTEGER PRIMARY KEY,
+  "nome" TEXT NOT NULL,
+  "sobrenome" TEXT NOT NULL,
+  "nome_completo_virtual" TEXT GENERATED ALWAYS AS ("nome" || ' ' || "sobrenome") VIRTUAL,
+  "nome_completo_stored" TEXT GENERATED ALWAYS AS ("nome" || ' ' || "sobrenome") STORED
+) STRICT;
+
+-- GENERATED ALWAYS É OPCIONAL E VIRTUAL É O PADRÃO.
+CREATE TABLE "users" (
+  "id" INTEGER PRIMARY KEY,
+  "nome" TEXT NOT NULL,
+  "sobrenome" TEXT NOT NULL,
+  "nome_completo_virtual" TEXT AS ("nome" || ' ' || "sobrenome"),
+  "nome_completo_stored" TEXT AS ("nome" || ' ' || "sobrenome") STORED
+) STRICT;
+
+-- 
+-- 
+INSERT INTO "users" ("nome", "sobrenome") 
+VALUES ('Anderson', 'Nosredna');
+
+-- DURANTE O SELECT PODEMOS CRIAR UMA COLUNA GERADA TEMPORÁRIA:
+SELECT *, ("nome" || ' ' || "sobrenome") AS "nome_completo" FROM "users";
+
+-- 
+-- 
+DROP TABLE "users";
